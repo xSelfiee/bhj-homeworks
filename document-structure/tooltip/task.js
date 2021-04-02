@@ -11,12 +11,13 @@ hasTooltip.forEach((text) => {
 
       tooltip.classList.remove('tooltip_active');
 
-    } 
+    } else {
 
-    tooltip.classList.add('tooltip_active');
-    tooltip.textContent = event.currentTarget.getAttribute('title');;
-    tooltip.style.left = event.currentTarget.offsetLeft + 0 + "px";
-    tooltip.style.top = event.currentTarget.offsetTop + 20 + "px";
+      tooltip.classList.add('tooltip_active');
+      tooltip.textContent = event.currentTarget.getAttribute('title');;
+      tooltip.style.left = event.currentTarget.offsetLeft + 0 + "px";
+      tooltip.style.top = event.currentTarget.offsetTop + 20 + "px";
 
+    }
   });
 });
