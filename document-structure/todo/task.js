@@ -2,10 +2,19 @@ let control = document.querySelector('.tasks__control');
 let input = document.querySelector('.tasks__input')
 let list = document.querySelector('.tasks__list');
 
-control.addEventListener('submit', function (event) {
+control.addEventListener('keypress', pressEnter);
+control.addEventListener('submit', formActions);
+
+function pressEnter(event) {
+    if (event.key === 'Enter') {
+        formActions();
+    }
+}
+
+function formActions(event) {
     event.preventDefault();
 
-    if (input.value !== '') {
+    if (input.value.trim() !== '') {
         list.insertAdjacentHTML('beforeEnd', '<div class="task"><div class="task__title">Сходить в магазин</div><a href="#" class="task__remove">&times;</a></div>');
         let task = document.querySelectorAll('.task__title');
         task[task.length - 1].textContent = input.value;
@@ -17,7 +26,5 @@ control.addEventListener('submit', function (event) {
 
         input.value = '';
 
-    } else if (input.value == '') {
-        alert('Сперва заполните поле ввода!');
-    };
-});
+    }
+}
