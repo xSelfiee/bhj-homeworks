@@ -1,23 +1,33 @@
 const hasTooltip = document.querySelectorAll('.has-tooltip');
 
-hasTooltip[0].insertAdjacentHTML('beforeend', '<div class="tooltip" style="left: 0; top: 0"></div>');
-let tooltip = document.querySelector('.tooltip');
+for (let el of hasTooltip) {
+  let element = document.createElement("div");
+
+  element.classList.add("tooltip");
+  element.innerText = el.title;    
+  element.style.left = `${el.getBoundingClientRect().left}px`;
+  element.style.top = `${el.getBoundingClientRect().bottom}px`;
+  element.style.position = "absolute";
+   
+  el.insertAdjacentElement('beforeend', element);
+}
+
 
 hasTooltip.forEach((text) => {
-  text.addEventListener('click', (event) => {
-    event.preventDefault();
+  text.onclick = () => {
         
-    if (tooltip.classList.contains('tooltip_active')) {
+    for(let elem of document.querySelectorAll(".tooltip")) {
 
-      tooltip.classList.remove('tooltip_active');
+      if(text.firstElementChild.classList.contains("tooltip_active")) {
+          continue;
+      }
+      
+      if (elem.classList.contains("tooltip_active")) {
+          elem.classList.remove("tooltip_active");
+      }
+    };
+    text.firstElementChild.classList.toggle("tooltip_active");
 
-    } else {
-
-      tooltip.classList.add('tooltip_active');
-      tooltip.textContent = event.currentTarget.getAttribute('title');;
-      tooltip.style.left = event.currentTarget.offsetLeft + 0 + "px";
-      tooltip.style.top = event.currentTarget.offsetTop + 20 + "px";
-
-    }
-  });
+    return false;
+  }
 });
